@@ -2,16 +2,29 @@
 
 Claude Code custom skills collection.
 
-## Usage
+## Setup
 
-Copy skill directories into `~/.claude/skills/` to make them available in Claude Code.
+Link the `skills` directory to your AI tool's skill location:
+
+**Claude Code:**
+```bash
+ln -s "$(pwd)/skills" ~/.claude/skills
+```
+
+**Codex:**
+```bash
+ln -s "$(pwd)/skills" ~/.agents/skills/mine
+```
 
 ## Skills
 
 | Skill | Description |
 |-------|-------------|
-| [python-project](python-project/) | Python project and virtualenv management with uv |
-| [rust-best-practices](rust-best-practices/) | Rust coding best practices for idiomatic, efficient, and maintainable code |
+| [python-command](skills/python-command/) | Run Python scripts and manage packages with uv |
+| [rust-best-practices](skills/rust-best-practices/) | Rust coding best practices for idiomatic, efficient, and maintainable code |
+| [cargo-toml-file](skills/cargo-toml-file/) | Safely add, remove, or edit Cargo.toml dependencies |
+| [grill-me](skills/grill-me/) | Stress-test a plan by relentless interviewing until shared understanding |
+
 
 ## Creating a Skill
 
