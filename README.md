@@ -1,6 +1,6 @@
 # Skills
 
-Claude Code custom skills collection.
+Custom skills collection. Mainly for my personal use.
 
 ## Setup
 
