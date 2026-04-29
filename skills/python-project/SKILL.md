@@ -37,7 +37,15 @@ tests/
 
 ## uv Workflow
 
-- Use `uv init` for new projects when scaffolding is needed.
+- Use `uv init --package` for new application projects so `uv` scaffolds package metadata and a `src/` layout.
+- After initializing a project with `uv init`, add this Pyright virtual environment configuration to `pyproject.toml`:
+
+  ```toml
+  [tool.pyright]
+  venvPath = "."
+  venv = ".venv"
+  ```
+
 - Use `uv add` and `uv remove` for dependency metadata changes.
 - Use `uv run` for Python commands, CLIs, tests, type checks, and linters.
 - Use `uv lock` after dependency metadata changes when the project keeps a lockfile.
@@ -46,6 +54,7 @@ tests/
 Common commands:
 
 ```bash
+uv init --package my-app
 uv run python -m my_app
 uv run pytest
 uv run ruff check .
@@ -94,6 +103,7 @@ Add dependencies only when code or tests will use them. Keep framework-specific 
 ## Configuration, Logging, and Errors
 
 - Read configuration once at startup and pass typed settings into app construction.
+- For non-trivial app configuration, prefer `pydantic-settings` with a small `BaseSettings` model in `config.py`.
 - Keep environment parsing out of business logic.
 - Use structured logging fields for request IDs, job IDs, user IDs, and external service names when those exist.
 - Raise specific exceptions inside domain code and translate them at the app boundary.
