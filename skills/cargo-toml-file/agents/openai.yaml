@@ -1,4 +1,0 @@
-interface:
-  display_name: "Cargo Dependency Editing"
-  short_description: "Edit Cargo.toml dependencies safely"
-  default_prompt: "Use $cargo-toml-file to add or update a Rust crate dependency safely."
