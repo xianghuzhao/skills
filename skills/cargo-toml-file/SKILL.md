@@ -34,6 +34,7 @@ Use this workflow whenever a task requires changing Cargo dependency metadata.
 ## Versions and Features
 
 - Prefer the latest compatible stable version that `cargo add` selects unless the user requested a specific version or the project pins versions intentionally.
+- When writing compatible semver version requirements, keep only the compatibility boundary: use `0.x` for `0.x.y` versions and `N` for `N.x.y` versions where `N > 0` (for example, `0.12.3` becomes `"0.12"` and `1.2.3` becomes `"1"`). If `cargo add` writes a full patch version, normalize it afterward while preserving the rest of the dependency metadata.
 - Respect existing minimum-supported Rust version constraints if the project documents them.
 - If a crate is already present, extend the existing dependency entry instead of creating a duplicate.
 - When changing features, verify feature names with `cargo info <crate>` or equivalent Cargo output if they are not already present in the project.
