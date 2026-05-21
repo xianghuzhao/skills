@@ -1,6 +1,7 @@
 ---
 name: tiger-implement
 description: Implement Tiger docs/NNNN-name/tasks.md checklists, requiring all task items to start unchecked.
+disable-model-invocation: true
 ---
 
 # Tiger Implement

@@ -1,6 +1,7 @@
 ---
 name: tiger-design
 description: Create technical design docs from PRDs by reading docs/NNNN-name/prd.md, inspecting the repo, and writing design.md beside the PRD.
+disable-model-invocation: true
 ---
 
 # Tiger Design

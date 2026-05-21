@@ -1,6 +1,7 @@
 ---
 name: tiger-prd
 description: Create lean PRDs from feature ideas or product plans by interviewing the user, inferring the PRD name, and writing docs/NNNN-name/prd.md.
+disable-model-invocation: true
 ---
 
 # Tiger PRD

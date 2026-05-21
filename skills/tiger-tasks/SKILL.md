@@ -1,6 +1,7 @@
 ---
 name: tiger-tasks
 description: Create unchecked implementation task lists from PRDs and optional design docs, writing docs/NNNN-name/tasks.md.
+disable-model-invocation: true
 ---
 
 # Tiger Tasks

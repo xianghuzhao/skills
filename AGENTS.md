@@ -45,3 +45,13 @@ Pull requests should describe the skill or documentation change, list affected p
 Do not edit unrelated skills while updating one skill. Preserve existing frontmatter fields unless the change requires them. When adding a skill, update `README.md` so the public skill table stays aligned with `skills/`.
 
 Do not add `agents/openai.yaml` unless the user explicitly asks for it.
+
+When a skill should only be triggered manually, configure both agent runtimes:
+
+- Add `disable-model-invocation: true` to the skill's `SKILL.md` frontmatter for Claude Code.
+- Add `skills/<skill-name>/agents/openai.yaml` with only the Codex invocation policy when no other OpenAI metadata is needed:
+
+```yaml
+policy:
+  allow_implicit_invocation: false
+```
