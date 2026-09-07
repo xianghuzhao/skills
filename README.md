@@ -24,7 +24,7 @@ ln -s "$(pwd)/skills" ~/.agents/skills/mine
 | [python-command](skills/python-command/) | Run Python scripts and manage packages with uv |
 | [python-dependency](skills/python-dependency/) | Manage Python dependencies in `pyproject.toml` with uv |
 | [python-project](skills/python-project/) | Build, refactor, test, and review Python application projects |
-| [rust-best-practices](skills/rust-best-practices/) | Rust coding best practices for idiomatic, efficient, and maintainable code |
+| [rust-best-practices](skills/rust-best-practices/) | Develop Rust applications with async I/O, personal stack defaults, workspace conventions, and focused validation |
 | [cargo-toml-file](skills/cargo-toml-file/) | Safely add, remove, or edit Cargo.toml dependencies |
 | [tiger-prd](skills/tiger-prd/) | Create lean PRDs from feature ideas or product plans |
 | [tiger-design](skills/tiger-design/) | Create technical design docs from Tiger PRDs |
