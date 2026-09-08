@@ -15,7 +15,7 @@ Use this workflow whenever a task requires changing Cargo dependency metadata.
 - Put dependencies in the narrowest correct section: `dependencies`, `dev-dependencies`, `build-dependencies`, or the matching target-specific table.
 - Keep default features enabled unless the project already disables them for that crate or the requested behavior requires `default-features = false`.
 - Add only the features that are required by the implementation. Do not guess features from memory when correctness depends on them; check crate metadata with Cargo tooling.
-- Do not introduce `path` or `git` dependencies unless the user requests them or the repository already uses that pattern for the same dependency source.
+- Allow `path` dependencies between crates in the repository when needed for the task. Introduce external `path` or `git` dependencies only when the user requests them or the repository already uses that pattern for the same dependency source.
 
 ## Adding Dependencies
 
@@ -37,21 +37,23 @@ Use this workflow whenever a task requires changing Cargo dependency metadata.
 - When writing compatible semver version requirements, keep only the compatibility boundary: use `0.x` for `0.x.y` versions and `N` for `N.x.y` versions where `N > 0` (for example, `0.12.3` becomes `"0.12"` and `1.2.3` becomes `"1"`). If `cargo add` writes a full patch version, normalize it afterward while preserving the rest of the dependency metadata.
 - Respect existing minimum-supported Rust version constraints if the project documents them.
 - If a crate is already present, extend the existing dependency entry instead of creating a duplicate.
-- When changing features, verify feature names with `cargo info <crate>` or equivalent Cargo output if they are not already present in the project.
+- When changing features, verify them against the dependency version and source actually used. For registry dependencies, use `cargo info <crate>@<version>`, adding `--registry <registry>` when needed. For `path` or `git` dependencies, inspect the manifest at the actual path or selected Git revision.
 
 ## Validation
 
-After dependency changes, run the smallest useful verification:
+After dependency changes, start with the affected package (`cargo check` for a single-package project):
 
 ```bash
-cargo check
+cargo check -p <package>
 ```
 
-For workspaces or changes affecting tests/features, prefer:
+- Select the configuration that exercises the change: use `--features <features>`, `--no-default-features`, or `--target <triple>` as needed. Do not blindly enable `--all-features`; feature combinations may be incompatible.
+- Include affected tests, examples, or benches with the corresponding target flags or `--all-targets`. Use `cargo test -p <package> --no-run` for test compilation, and run relevant tests when behavior needs verification.
+- Broaden verification to the workspace when shared dependencies change, retaining the feature and target options needed to cover the change:
 
 ```bash
 cargo check --workspace
 cargo test --workspace --no-run
 ```
 
-If validation cannot run because dependencies cannot be downloaded or the environment blocks network access, report that explicitly.
+Report any configuration that could not be verified and why, including unavailable target toolchains, dependency downloads, or network access.
