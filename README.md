@@ -27,7 +27,7 @@ ln -s "$(pwd)/skills" ~/.agents/skills/mine
 | [python-dependency](skills/python-dependency/) | Manage Python dependencies in `pyproject.toml` with uv |
 | [python-project](skills/python-project/) | Build, refactor, test, and review Python application projects |
 | [rust-best-practices](skills/rust-best-practices/) | Develop Rust applications with async I/O, personal stack defaults, workspace conventions, and focused validation |
-| [tiger-docs](skills/tiger-docs/) | Resolve decisions one question at a time, then integrate confirmed outcomes into engineering docs, terminology, and the AGENTS.md documentation index |
+| [tiger-docs](skills/tiger-docs/) | Resolve decisions one question at a time, update engineering docs and the AGENTS.md index, and write numbered change specifications in dev-docs when code changes are needed |
 
 ## Contributor Notes
 
