@@ -28,6 +28,7 @@ ln -s "$(pwd)/skills" ~/.agents/skills/mine
 | [python-project](skills/python-project/) | Build, refactor, test, and review Python application projects |
 | [rust-best-practices](skills/rust-best-practices/) | Develop Rust applications with async I/O, personal stack defaults, workspace conventions, and focused validation |
 | [tiger-docs](skills/tiger-docs/) | Resolve decisions one question at a time, update engineering docs and the AGENTS.md index, and write numbered change specifications in dev-docs when code changes are needed |
+| [tiger-tasks](skills/tiger-tasks/) | Turn a selected change specification into approved, independently verifiable implementation tasks, preserving task IDs and progress when updating tasks.md; explicit invocation only |
 
 ## Contributor Notes
 
