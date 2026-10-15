@@ -1,86 +1,65 @@
 ---
 name: tiger-docs
-description: Resolve project decisions, integrate confirmed outcomes into engineering docs and the AGENTS.md documentation index, and write numbered change specifications when those outcomes require code changes. Use only when explicitly invoked.
+description: Resolve project decisions and write approved change specifications covering implementation requirements and documentation modification plans.
 disable-model-invocation: true
 ---
 
 # Tiger Docs
 
-Maintain internal engineering documentation as the project's current source of truth. Resolve the decisions in the current session, integrate the confirmed results into the existing documentation structure, and capture required implementation changes in specifications.
+Turn confirmed decisions into change specifications for later execution. Read the project's code, documentation, and rules to establish the gap between the current state and the agreed target.
 
-Documentation-only scope: modify maintainable documentation under `docs/`, change specifications at `dev-docs/<number>-<kebab-case-description>/spec.md`, and the documentation index and development-document conventions in the root `AGENTS.md` only. These paths belong to the target project. Read related code as needed, but do not change product code, tests, configuration, migrations, source comments, or generated files. Do not create implementation tasks, placeholder files, or a `dev-docs/README.md`, or invoke another skill. Stop after reporting the documentation result.
+Write only `dev-docs/<number>-<kebab-case-description>/spec.md` in the target project. Treat `docs/`, root `AGENTS.md`, and implementation files as read-only inputs; describe their required changes in the specification. Preserve other files, including `tasks.md`. Do not create implementation tasks, placeholder files, or a specification index, or automatically invoke another skill.
 
-## Questioning rules
+## Questioning and approval
 
-- Throughout the workflow, ask only one question requiring one decision at a time, provide a recommended answer, and wait for the user's response before asking the next question. This applies to decision clarification, conflict resolution, terminology choices, and approvals.
-- Do not bundle independent decisions into one question.
+- Ask one unresolved decision at a time, provide a recommended answer, and wait for the response. Resolve prerequisites before dependent decisions.
+- Ask only about material ambiguities in goals, scope, behavior, constraints, acceptance criteria, or documentation meaning. Reuse explicit instructions and established project conventions; handle wording and routine editorial choices independently.
+- Discover repository facts through inspection. Finish that exploration before asking questions that depend on it.
+- Obtain approval of the complete specification drafts and exact target paths before writing. This is the single approval for this skill; shared understanding and document structure need no separate approval rounds. If revisions are requested, present the complete revised drafts for approval.
 
 ## Workflow
 
-1. Ground in the project.
-   - Find the repository root and read its `AGENTS.md` when present.
-   - Recursively inventory maintainable documentation sources under `docs/`, including formats such as Markdown, AsciiDoc, reStructuredText, text, and maintained API specifications. Exclude images, attachments, and generated artifacts.
-   - Use the documentation index, document headings, and focused searches to identify relevant documents, then read those documents in full. Expand the read when the index is absent, stale, or insufficient to detect affected content or conflicts.
-   - Establish the starting state of affected documents and distinguish existing workspace changes from this session's confirmed changes. Inspect existing numbered directories under `dev-docs/` and read an existing specification when the user explicitly continues that work item.
-   - Discover repository facts instead of asking the user. An unfinished exploration is an unresolved prerequisite, not a question for the user.
+1. Establish the current state.
+   - Read the repository's `AGENTS.md` and applicable local instructions. Use the documentation index, headings, and focused searches to locate affected documentation, then read it in full. Expand the search when the index is absent, stale, or insufficient.
+   - Inspect related code to verify current behavior. Distinguish existing workspace changes from the changes requested in this session.
+   - Inspect numbered directories under `dev-docs/`; read the existing specification when the user explicitly continues a work item.
+   - Complete when the affected sources and current behavior are established, with uncertainties identified for resolution.
 
-2. Resolve decisions as a design tree.
-   - Model each decision as a node whose dependent decisions branch from it.
-   - Select one unresolved decision whose prerequisites are settled and ask about it.
-   - Wait for the user's answer, update the decision tree, and select the next question based on the updated tree.
-   - Continue until every relevant branch is resolved and no decision is silently assumed.
-   - Do not prepare or modify documentation until the user explicitly confirms that shared understanding has been reached.
+2. Resolve the target.
+   - Clarify material decisions using the questioning rules. For replacements, establish which existing rules change and what replaces them; for unexplained contradictions, clarify whether to retain, replace, or scope the rules so they coexist.
+   - Apply approved replacements within this work item's scope; other project rules remain applicable. Clarify conflicts caused by later changes or differences the specification does not explain. Record unrelated pre-existing conflicts for the report without expanding the work item.
+   - Complete when every material decision needed to define the change and its acceptance criteria is resolved. If implementation, documentation, and relevant project conventions already satisfy the target, report the evidence and stop without creating a specification.
 
-3. Prepare the integration without writing.
-   - Extract confirmed decisions and the rationale, constraints, scope, and consequences necessary to understand them. Do not preserve the interview transcript.
-   - Map each decision to every existing document whose meaning it affects. Common categories include product, architecture, data model, glossary, coding standards, API, testing, and release, but use other coherent categories when the subject does not fit them.
-   - Prefer the project's existing document structure, categories, and names. Without an applicable convention, use `docs/<kebab-case-category>.md`.
-   - Give each subject one authoritative document. Plan only the necessary summaries, constraints, or links in other affected documents.
-   - Identify implementation requirements introduced, changed, or removed by this session's confirmed documentation changes. Do not treat the entire workspace diff as this session's scope.
-   - Read related code as needed to establish current behavior and the gap to the confirmed target. Generate specifications only when implementation changes are needed; skip formatting, wording, and documentation of behavior already implemented. Mark unverified facts explicitly and resolve uncertainty that affects the scope, requirements, or decision to generate before writing.
-   - Group changes that share a goal and depend on one another into one specification, even when they affect multiple documents. Split independently implementable and verifiable changes into separate work items. Choose their paths using the change specification conventions below.
+3. Prepare complete specifications without writing.
+   - Capture confirmed decisions and necessary rationale, scope, constraints, consequences, and verifiable acceptance criteria. Record requirements rather than the interview transcript or coding steps.
+   - Cover every implementation and documentation gap introduced, changed, or removed by this session. Include documentation-only changes even when no code changes are needed.
+   - Map each decision to every affected document and prepare its modification plan using the conventions below. Resolve uncertainties affecting scope or requirements before presenting drafts.
+   - Group changes with a shared goal and dependencies into one specification; split independently implementable and verifiable changes into separate work items. Allocate paths using the numbering conventions below.
+   - Complete when every confirmed change is covered by a draft and its acceptance criteria, with existing facts distinguished from proposed changes.
 
-4. Resolve all blockers before changing files.
-   - Treat contradictory outcomes, overlapping rules with different effects, and apparent replacements of existing decisions as conflicts.
-   - For each conflict affecting this integration, ask the user whether to retain the existing decision, adopt the new decision, or scope both decisions so they can coexist. Do not choose silently.
-   - Resolve unclear target categories, scope boundaries, and the meaning or preferred name of affected terms with the user.
-   - Identify needed new documents and splits. Propose a split when unrelated categories obscure a document's ownership or navigation. Propose a glossary only if none exists and the confirmed decisions introduce or clarify project-specific or easily confused terms.
-   - For new documents, splits, or specifications, settle the independent decisions, then present one complete information-architecture proposal containing every target path, each document's responsibility, content to move, and resulting links. Include specification grouping and whether each specification is new or updates an explicitly continued work item. Ask for approval of the whole proposal before writing; this approval also covers the specifications without a separate approval round. If changes are requested, resolve them and resubmit the complete proposal.
-   - Finish the entire preflight before writing. If any blocking issue remains unresolved, make no documentation changes.
-   - Do not repair unrelated pre-existing conflicts. Record them for the final report; promote one to a blocker only if it affects the current integration.
+4. Present the complete drafts for approval.
+   - Show every full target specification path and its complete draft, identifying new work items and updates to explicitly continued items. Include all proposed documentation changes within the drafts.
+   - Complete when the user has approved the full set of drafts and paths under the questioning and approval rules.
 
-5. Integrate the confirmed decisions.
-   - Preserve each document's purpose, useful content, structure, style, terminology, and language.
-   - Rewrite or merge relevant passages in their semantically correct locations. Never mechanically append new decisions to the end of a document.
-   - Keep the complete explanation in the authoritative document and update other affected documents only as needed to remain consistent and navigable.
-   - When a confirmed decision replaces an old one, rewrite or remove superseded statements so the documentation expresses the current truth. Retain brief history only when migration, compatibility, or an active constraint requires it.
+5. Write, verify, and report.
+   - Recheck relevant sources, existing specifications, numbering, and target paths. If intervening changes invalidate the approved content or occupy a new path, reconcile them and obtain approval of the complete revised drafts and paths before writing.
+   - Write only the approved specifications. Verify coverage of confirmed requirements, agreement between implementation requirements and documentation plans, and relative links to existing sources. Clearly identify planned paths and sections as future targets rather than existing references.
+   - Complete when the saved specifications match the approved drafts and these checks pass. Report their paths, implementation impact, planned documentation changes, and verification results. Explain any unrelated pre-existing conflicts, then stop.
 
-6. Maintain terminology when needed.
-   - Update the existing glossary while preserving its structure, or create one if approved in preflight. Place affected project-specific terms in the appropriate categories and positions.
-   - Use one preferred term per concept and record alternate names as aliases when useful.
+## Specification conventions
 
-7. Write the approved change specifications.
-   - Use the confirmed requirements, integrated documentation, and verified implementation gap to write each approved `spec.md` according to the conventions below.
-   - Check that each specification agrees with the updated authoritative documents and that its relative links and section references resolve.
+- Use `dev-docs/<number>-<kebab-case-description>/spec.md`, for example `dev-docs/0001-add-new-button/spec.md`. Use a short English description and allocate globally from the highest existing numbered directory plus one, starting at `0001`, with at least four digits. Allocate successive numbers for multiple work items; preserve existing numbers and gaps.
+- Default to a new directory. Update an existing specification only when the user explicitly continues that work item; ask if the target is ambiguous. Integrate the new decisions while preserving still-applicable requirements and other files in that directory. Independent later changes leave old specifications intact.
+- Follow the project's documentation language and style. Explain background and goals, scope and exclusions, current and target behavior, necessary constraints, verifiable acceptance criteria, and the documentation modification plan. Cover interfaces, data, migrations, and compatibility only when relevant.
+- Link to existing source documents and sections using relative links. Identify the old rules being replaced and their approved replacements so later execution can distinguish intentional changes from unexplained conflicts. Include the requirements needed to implement the change without copying entire project documents.
 
-8. Refresh the documentation index and directory conventions.
-   - Create the root `AGENTS.md` if it does not exist; otherwise preserve every unrelated instruction.
-   - Add or update exactly one `## Documentation Index` section after documentation integration is complete.
-   - Recursively list every maintainable documentation source under `docs/`, sorted by relative path. Each entry must contain a relative Markdown link and a one-sentence description derived from that document's content.
-   - Do not list images, attachments, or generated artifacts as documentation entries.
-   - Add or update a concise development-document convention in the root `AGENTS.md`: explain the purpose and naming of `dev-docs/<number>-<kebab-case-description>/spec.md`, its relationship to current rules in `docs/`, and the need to clarify conflicts before implementing an old specification. Preserve unrelated instructions and avoid duplicating an existing convention.
-   - Do not enumerate specifications in `AGENTS.md` or create a separate specification index. Directory names and the final report locate individual specifications.
+## Documentation modification plans
 
-9. Report and stop.
-   - Summarize the decisions integrated, documents created or updated, glossary changes, and index changes.
-   - Report unrelated pre-existing conflicts without changing them.
-   - List created or updated specification paths, their implementation impact, and authoritative documents that a later explicit coding request should follow. If no specification was generated or updated, explain why.
-
-## Change specification conventions
-
-- Use `dev-docs/<number>-<kebab-case-description>/spec.md`, for example `dev-docs/0001-add-new-button/spec.md`. Use a short English description. Allocate numbers globally from the highest existing numbered directory plus one, starting at `0001`, with at least four digits. For multiple new work items, allocate successive numbers. Do not fill gaps or renumber existing directories.
-- Default to a new directory. Update an existing specification only when the user explicitly continues that work item; ask if the target is ambiguous. Preserve other files in that directory, including any future `tasks.md`.
-- Recheck numbering and target paths before writing. Never overwrite an existing directory to create a new work item. If the approved new number or path has become occupied, resolve the collision and confirm the revised path before writing.
-- Follow the project's documentation language and style. Each specification must explain the complete change through background and goals, scope and exclusions, current and target behavior, necessary constraints, verifiable acceptance criteria, and relative links to authoritative `docs/` sections. Cover interface, data, migration, or compatibility changes only when relevant.
-- Include the rules necessary to implement this change without copying whole project documents. Describe observable requirements and confirmed constraints, not coding steps, implementation ordering, or task checklists.
-- `docs/` remains the current source of truth; a specification records the requirements of its particular change. Independent later changes do not rewrite old specifications. When explicitly continuing a work item, integrate the new decisions into its specification while preserving still-applicable requirements. Clarify conflicts with current rules before implementing an old specification; do not silently follow stale requirements.
+- For every affected document, identify the file and section, rules to add or replace, obsolete conclusions to remove, and necessary link or section-reference changes. Specify content requirements; leave final prose to execution. State explicitly when no documentation changes are needed.
+- Prefer existing categories, names, and ownership. Give each subject one authoritative home and plan necessary summaries or links elsewhere. Integrate changes in their semantic locations, replacing superseded statements; retain history only for migration, compatibility, or active constraints.
+- For new documents, splits, or moves, list full target paths, responsibilities, source paths and sections, content to move, and affected incoming and outgoing links. Limit reorganization to documents affected by this change. Capture required reference repairs outside `docs/` as explicit requirements so the plan leaves no broken references.
+- Propose nested directories when subject, module, or domain relationships improve ownership or navigation; explain each new directory's purpose. Use existing naming conventions, otherwise kebab-case. Choose depth from content relationships, with no fixed depth or file-count threshold; propose only directories needed by actual documents.
+- When terminology changes, plan updates to the existing glossary and affected usages. Propose a glossary only when none exists and the change needs project-specific or easily confused terms defined. Use one preferred term per concept, with useful aliases.
+- When document changes affect the root `AGENTS.md` documentation index, plan an update to its single `## Documentation Index` section. The resulting index should list every maintainable source under `docs/`, recursively and sorted by relative path, with relative links and one-sentence descriptions; exclude images, attachments, and generated artifacts. Use final paths after moves.
+- When missing or stale, plan a concise root `AGENTS.md` convention for `dev-docs/<number>-<kebab-case-description>/spec.md`, its purpose and naming, and how approved replacements relate to other current project rules. Preserve unrelated instructions and keep individual specifications out of the index.
+- Tie documentation acceptance criteria to the confirmed target and reference integrity. Documentation describing new behavior is executed only after its corresponding implementation passes verification; documentation-only changes may execute independently.

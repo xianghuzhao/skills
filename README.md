@@ -27,9 +27,9 @@ ln -s "$(pwd)/skills" ~/.agents/skills/mine
 | [python-dependency](skills/python-dependency/) | Manage Python dependencies in `pyproject.toml` with uv |
 | [python-project](skills/python-project/) | Build, refactor, test, and review Python application projects |
 | [rust-best-practices](skills/rust-best-practices/) | Develop Rust applications with async I/O, personal stack defaults, workspace conventions, and focused validation |
-| [tiger-docs](skills/tiger-docs/) | Resolve decisions one question at a time, update engineering docs and the AGENTS.md index, and write numbered change specifications in dev-docs when code changes are needed |
-| [tiger-implement](skills/tiger-implement/) | Implement tasks.md after approval of a complete file-change proposal and record verified completion and blockers; explicit invocation only |
-| [tiger-tasks](skills/tiger-tasks/) | Turn a selected change specification into approved, independently verifiable implementation tasks, preserving task IDs and progress when updating tasks.md; explicit invocation only |
+| [tiger-docs](skills/tiger-docs/) | Resolve decisions and write approved specifications in dev-docs covering implementation requirements and plans for documentation changes; explicit invocation only |
+| [tiger-implement](skills/tiger-implement/) | Execute code and documentation tasks after approval of a complete file-change proposal, updating behavior documentation after corresponding implementation verification; explicit invocation only |
+| [tiger-tasks](skills/tiger-tasks/) | Turn a specification into approved code and documentation tasks with verification dependencies, preserving task IDs and progress; explicit invocation only |
 
 ## Contributor Notes
 
