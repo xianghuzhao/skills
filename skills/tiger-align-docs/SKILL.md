@@ -1,16 +1,18 @@
 ---
 name: tiger-align-docs
-description: Compare documented and implemented behavior in both directions, report meaningful gaps, and ask how to resolve them.
+description: Compare behavior documented in docs/ with current code in both directions, report meaningful gaps, and ask how to resolve them.
 disable-model-invocation: true
 ---
 
 # Tiger Align Docs
 
+Review only `docs/` and current code. Skip `dev-docs/` because its development history may differ from current behavior.
+
 Read the [Tiger documentation layout](../_shared/tiger-docs-layout.md) and applicable project instructions. Compare the documentation index with the maintained topic pages on disk. Report structural issues separately and include unindexed pages in the review. If the formal documentation directory is missing, explain the coverage limitation and stop.
 
 Trace documented behavior through relevant code entry points, then review implemented capabilities and rules against the topic pages. Group findings by behavior:
 
-1. **Documented feature without an identified implementation.** Cite the promised behavior and the entry points or code areas checked. If an available specification tracks the gap, link it and label the feature as known pending work.
+1. **Documented feature without an identified implementation.** Cite the promised behavior and the entry points or code areas checked.
 2. **Contradictory behavior.** Give the condition under which the documentation and implementation predict different outcomes. Cite the relevant section and code path and describe both outcomes. Flag inconclusive evidence as an open question.
 3. **Important undocumented behavior.** Identify an implemented capability readers could miss or a rule whose omission permits different reasonable expectations for users or maintainers. Cite the implementation and the documentation area checked. Explain the concrete consequence. Omit routine implementation details.
 
