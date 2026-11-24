@@ -23,7 +23,7 @@ Documentation-only scope: create or update only `dev-docs/<number>-<kebab-case-d
    - Read the target project's root `AGENTS.md` and applicable local instructions.
    - Select the specification identified by the user's request or explicit session context. If the target is ambiguous, ask; never assume the highest-numbered directory is the intended work item. If the specification is missing, ask the user to provide or identify it instead of inventing requirements or creating a specification.
    - Read the selected `spec.md` in full, its authoritative documentation references, relevant implementation code, and any existing `tasks.md`.
-   - Follow docs/README.md and focused searches to find other current rules affecting the change. Establish the actual code and documentation gaps and preserve unrelated workspace changes.
+   - Read the [Tiger documentation layout](../_shared/tiger-docs-layout.md), then use the documentation index and focused searches to find other current rules affecting the change. Establish the actual code and documentation gaps and preserve unrelated workspace changes.
 
 2. Resolve decisions that affect decomposition.
    - Use established project conventions and confirmed constraints. Ask about unresolved technical choices that change task boundaries, dependencies, or acceptance criteria; leave routine local coding choices to the implementation stage.
@@ -33,7 +33,7 @@ Documentation-only scope: create or update only `dev-docs/<number>-<kebab-case-d
 3. Prepare an executable decomposition without writing.
    - Group work into independently verifiable implementation units. A task may span multiple files or layers when they form one coherent capability. Necessary foundations may be separate tasks when they have their own completion criteria.
    - Order tasks by their dependencies. Identify prerequisites by task ID and ensure there are no circular or missing dependencies.
-   - Cover every applicable specification requirement and acceptance criterion, including any remaining documentation or docs/README.md index gaps. Include migration, compatibility, and integration verification work when the specification requires it.
+   - Cover every applicable specification requirement and acceptance criterion, including any remaining documentation or documentation index gaps. Include migration, compatibility, and integration verification work when the specification requires it.
    - Make tasks that document new behavior depend on the corresponding implementation tasks passing verification. Documentation-only changes may execute independently. Include checks for required content, removal of superseded rules, and affected links and section references.
    - Inspect existing behavior before adding work. If a requirement is already implemented, explain the evidence in the coverage notes rather than creating a completed task or unnecessary implementation work. Include verification work when evidence is insufficient. If every criterion is already satisfied, report the evidence and stop without creating an empty task list.
    - Add only technical detail needed to execute and verify each task. Refer to authoritative requirements instead of duplicating the specification or prescribing every function and coding step.
@@ -48,7 +48,7 @@ Documentation-only scope: create or update only `dev-docs/<number>-<kebab-case-d
    - Recheck the selected specification and existing task document before writing. If intervening changes affect the approved proposal, reconcile them and obtain approval for the revised proposal rather than overwriting them.
    - Use the project's documentation language and style, preserving unrelated content.
    - Write only the approved `tasks.md`. Verify requirement coverage, task IDs, dependencies, completion states, and relative links against the source documents.
-   - Report the path, task changes, dependency order, and verification performed on the document. Clearly distinguish document validation from implementation verification, then ask whether to continue with tiger-implement for this tasks.md. Wait for confirmation before invoking it.
+   - Report the path, task changes, dependency order, and verification performed on the document. Clearly distinguish document validation from implementation verification, then ask whether to continue with tiger-implement for this tasks.md. Stop if the user declines. On confirmation, read the full [Tiger Implement instructions](../tiger-implement/SKILL.md) and follow them from the first step in this session using the verified tasks.md. Obtain approval of the implementation proposal before editing project files. If the instructions cannot be read, report the missing or unreadable path and stop.
 
 ## Task document conventions
 
