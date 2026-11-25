@@ -6,6 +6,10 @@ disable-model-invocation: true
 
 # Tiger Docs
 
+Throughout this skill, write only to `docs/` and each current work item's `spec.md`. When migrating an existing documentation index from the root `AGENTS.md`, edit only the corresponding index content there. Treat all other files, including product code, tests, configuration and `tasks.md`, as read-only.
+
+Record implementation gaps and observable acceptance criteria in the relevant `spec.md`, even when the fix is obvious or takes only one line. Leave implementation for a later stage.
+
 Read the [Tiger documentation layout](../_shared/tiger-docs-layout.md) before locating or updating project documents.
 
 ## Workflow
