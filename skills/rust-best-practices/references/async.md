@@ -16,6 +16,8 @@ Read when implementing I/O, shared state, background tasks, cancellation, or shu
 
 - Keep critical sections small. A standard mutex can be appropriate for short in-memory access with low contention if its guard is released before `.await`; use a lexical scope to make this clear.
 - Use an async mutex when holding the lock across awaited work is actually necessary. First consider whether copying the needed state or moving ownership to a task removes that need. Do not hold locks over slow I/O merely for convenience.
+- Prefer one owner and borrows when practical. Once tasks need independent shared handles, cloning an existing `Arc` is appropriate.
+- When a standard mutex reports poisoning, propagate or report the failure, or terminate if the invariant is essential. Do not extract and continue using the potentially inconsistent protected value. See [Google concurrency guidance](https://google.github.io/styleguide/rustguide.html#concurrency).
 - Share state deliberately. `Arc` shares ownership but does not make its contents thread-safe; avoid a single coarse lock around unrelated application state.
 - Bound in-flight requests and work queues. Choose capacity and saturation behavior from the workload instead of spawning one task per item without a limit.
 - Acquire concurrency permits before spawning work when the aim is to bound the number of tasks as well as active operations. A semaphore inside each of an unlimited number of spawned tasks does not bound the waiting tasks.

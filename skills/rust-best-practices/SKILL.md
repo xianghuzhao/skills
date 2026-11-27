@@ -13,6 +13,7 @@ allowed-tools: Read, Edit, Write, Bash, Grep, Glob, Task
 - Prefer asynchronous APIs for network, file, database, and subprocess I/O, including in small CLIs. Keep pure computation, in-memory transformations, and configuration parsing synchronous.
 - Add dependencies only when code or tests need them. Do not scaffold the entire stack, migrate unrelated code, upgrade the toolchain, or create CI merely because this skill is loaded.
 - Read only the relevant reference when the task involves:
+  - Module organization, Rust style, API design, unsafe contracts, or implementation review: [Rust style](references/rust-style.md).
   - Async I/O, locks, background tasks, cancellation, or shutdown: [Async and I/O](references/async.md).
   - Startup settings, environment variables, or CLI overrides: [Configuration](references/configuration.md).
   - HTTP services, CLIs, outgoing requests, or logging: [Application Boundaries](references/app-boundaries.md).
@@ -46,7 +47,7 @@ Do not hardcode dependency versions from this document. Check current compatible
 
 ## Ownership, Types, and Readability
 
-- Borrow when a function only reads data (`&str`, `&[T]`). Accept owned values when storing or transferring ownership; use `impl Into<String>` when callers benefit from conversion at an ownership boundary.
+- Borrow when a function only reads data (`&str`, `&[T]`). Accept owned values when storing or transferring ownership; application functions storing a string should normally accept `String`, with callers converting explicitly. Consider `impl Into<String>` for reusable library APIs when caller convenience justifies a generic signature.
 - A clone can be appropriate for independent ownership or shared handles such as `Arc`, connection pools, and HTTP clients. Consider its actual cost before changing the ownership design.
 - Use `Cow` only when returning either borrowed or owned data avoids meaningful allocation without complicating the interface unnecessarily.
 - Use enums and newtypes for meaningful domain distinctions. Validate constrained values at construction and keep fields private where needed. A newtype does not itself enforce numeric validity or distinguish two parameters of the same type, such as source and destination account IDs.
